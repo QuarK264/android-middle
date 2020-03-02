@@ -6,11 +6,10 @@
     android:id="@+id/containerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.PlaceholderFragment">
+    tools:context=".home.houses.pager.page.HousePageFragment">
 
     <ListView
         android:id="@+id/charterView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 </FrameLayout>
