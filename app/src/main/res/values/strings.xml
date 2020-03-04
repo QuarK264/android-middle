@@ -1,5 +1,14 @@
 <resources>
-    <string name="app_name">AndroidMiddle</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="app_name">Game of Thrones</string>
+
+    <!--region House short names-->
+    <string name="houses_tab_stark_short">Starks</string>
+    <string name="houses_tab_lannister_short">Lannisters</string>
+    <string name="houses_tab_targaryen_short">Targaryens</string>
+    <string name="houses_tab_baratheon_short">Baratheons</string>
+    <string name="houses_tab_greyjoy_short">Greyjoys</string>
+    <string name="houses_tab_martel_short">Martels</string>
+    <string name="houses_tab_tyrells_short">Tyrells</string>
+    <!--endregion House short names-->
+    ,
 </resources>

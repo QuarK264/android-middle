@@ -57,6 +57,21 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
     //endregion Android KTX
 
+    //region ReactiveX
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$rx_binding_version"
+    implementation "com.jakewharton.rxbinding3:rxbinding-material:$rx_binding_version"
+    implementation "com.jakewharton.rxbinding3:rxbinding-appcompat:$rx_binding_version"
+    implementation "com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:$rx_binding_version"
+    implementation "com.trello.rxlifecycle3:rxlifecycle:$rx_lifecycle_version"
+    implementation "com.trello.rxlifecycle3:rxlifecycle-android:$rx_lifecycle_version"
+    implementation "com.trello.rxlifecycle3:rxlifecycle-kotlin:$rx_lifecycle_version"
+    implementation "com.trello.rxlifecycle3:rxlifecycle-components:$rx_lifecycle_version"
+    implementation "com.github.tbruyelle:rxpermissions:$rx_permissions_version"
+    //endregion ReactiveX
+
     //region DI
     implementation "org.kodein.di:kodein-di-generic-jvm:$kodein_version"
     implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_android_version"
@@ -75,6 +90,11 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
     //endregion Navigation
+
+    //region Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    //endregion Retrofit
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

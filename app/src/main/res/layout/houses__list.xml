@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/containerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.houses.pager.page.HousePageFragment">
+    tools:context=".home.houses.pager.page.list.HousePageFragment">
 
-    <ListView
-        android:id="@+id/charterView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/charactersView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem=""/>
 </FrameLayout>
