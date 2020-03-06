@@ -5,7 +5,6 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import ru.skillbranch.gameofthrones.core.base.RxPresenter
 import ru.skillbranch.gameofthrones.core.domain.interaction.GetCharactersInteractor
-import ru.skillbranch.gameofthrones.core.extensions.execute
 import ru.skillbranch.gameofthrones.core.extensions.mapImmutable
 import ru.skillbranch.gameofthrones.home.houses.pager.page.list.model.mapToListView
 
@@ -21,7 +20,7 @@ class HousePagePresenter(
             .getCharacters
             .flatMapSingle {
                 getCharactersInteractor
-                    .execute()
+                    .execute(it)
                     .map { list ->
                         list.mapImmutable { it.mapToListView() }
                     }

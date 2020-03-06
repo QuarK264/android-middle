@@ -10,7 +10,6 @@ import ru.skillbranch.gameofthrones.home.houses.pager.page.list.HousePagePresent
 import ru.skillbranch.gameofthrones.home.houses.pager.page.list.HousePageScreen
 
 object PresenterSubscreenModule {
-
     val module = Kodein.Module("PresenterSubscreenModule") {
         bind<ScreenObserver>() with contexted<HousePageScreen>().provider {
             HousePagePresenter(context, instance())

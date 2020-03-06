@@ -24,11 +24,11 @@ class HousePageFragment : BaseFragment(), HousePageScreen {
 
     private val adapter by lazy { CharactersAdapter() }
 
-    private val getCharactersSubject = PublishSubject.create<Unit>()
-    override val getCharacters: Observable<Unit> = getCharactersSubject.hide()
+    private val getCharactersSubject = PublishSubject.create<HousePageType>()
+    override val getCharacters: Observable<HousePageType> = getCharactersSubject.hide()
 
     override fun displayCharacters(characters: ImmutableList<Item>) {
-        adapter.setItems(mockData)
+        adapter.setItems(characters)
     }
 
     private val mockData = immutableListOf<Item>(
@@ -68,7 +68,7 @@ class HousePageFragment : BaseFragment(), HousePageScreen {
     override fun onResume() {
         super.onResume()
 
-        getCharactersSubject.onNext()
+        getCharactersSubject.onNext(pageType)
     }
 
     companion object {

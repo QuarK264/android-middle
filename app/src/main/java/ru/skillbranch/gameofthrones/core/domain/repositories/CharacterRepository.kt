@@ -5,5 +5,5 @@ import kotlinx.collections.immutable.ImmutableList
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 
 interface CharacterRepository {
-    fun getAllForList(): Single<ImmutableList<CharacterItem>>
+    fun getAllForList(houseId: Long): Single<ImmutableList<CharacterItem>>
 }

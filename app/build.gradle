@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
 
 android {
     compileSdkVersion 29
@@ -79,6 +80,7 @@ dependencies {
 
     //region KotlinX
     implementation "org.jetbrains.kotlinx:kotlinx-collections-immutable:$immutable_collections_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$kotlinx_serialization"
     //endregion KotlinX
 
     //region Glide
@@ -94,6 +96,8 @@ dependencies {
     //region Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinx_serialization_retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
     //endregion Retrofit
 
     testImplementation 'junit:junit:4.12'
