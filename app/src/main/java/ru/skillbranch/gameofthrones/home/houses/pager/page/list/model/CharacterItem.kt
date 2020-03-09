@@ -7,5 +7,5 @@ class CharacterItem(
     val id: String,
     val name: String,
     val aliases: String,
-    val houseLogo: Int
+    var houseLogo: Int
 ) : Item(viewType)

@@ -10,7 +10,7 @@ import ru.skillbranch.gameofthrones.repositories.AndroidCharacterRepository
 object RepositoriesModule {
     val module = Kodein.Module("RepositoriesModule") {
         bind<CharacterRepository>() with singleton {
-            AndroidCharacterRepository(instance(), instance())
+            AndroidCharacterRepository(instance(), instance(), instance(), instance())
         }
     }
 }

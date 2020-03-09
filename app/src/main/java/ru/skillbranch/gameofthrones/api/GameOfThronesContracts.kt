@@ -27,4 +27,16 @@ object GameOfThronesContracts {
             const val API_PREFIX = "api/"
         }
     }
+
+    class HouseId {
+        companion object {
+            const val STARK = 362L
+            const val LANNISTER = 229L
+            const val TARGARYEN = 378L
+            const val GREYJOY = 169L
+            const val TYRELL = 398L
+            const val BARATHEON = 17L
+            const val MARTELL = 285L
+        }
+    }
 }

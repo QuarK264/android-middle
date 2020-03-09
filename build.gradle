@@ -53,6 +53,10 @@ buildscript {
         kotlinx_serialization_retrofit_version = '0.5.0'
         okhttp3_version = '4.3.1'
         //endregion Retrofit
+
+        //region Room
+        room_version = '1.1.1'
+        //endregion Room
     }
     repositories {
         google()

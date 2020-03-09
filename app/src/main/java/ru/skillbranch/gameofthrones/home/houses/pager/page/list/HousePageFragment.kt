@@ -28,6 +28,21 @@ class HousePageFragment : BaseFragment(), HousePageScreen {
     override val getCharacters: Observable<HousePageType> = getCharactersSubject.hide()
 
     override fun displayCharacters(characters: ImmutableList<Item>) {
+        characters.map {
+            val character = it as CharacterItem
+            if (character.houseLogo == 0) {
+                character.houseLogo = when (pageType) {
+                    HousePageType.STARK -> R.drawable.stark_icon
+                    HousePageType.LANNISTER -> R.drawable.lannister_icon
+                    HousePageType.TARGARYEN -> R.drawable.targaryen_icon
+                    HousePageType.GREYJOY -> R.drawable.greyjoy_icon
+                    HousePageType.TYRELL -> R.drawable.tyrel_icon
+                    HousePageType.BARATHEON -> R.drawable.baratheon_icon
+                    HousePageType.MARTELL -> R.drawable.martel_icon
+                }
+            }
+        }
+
         adapter.setItems(characters)
     }
 

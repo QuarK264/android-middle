@@ -11,5 +11,5 @@
         android:id="@+id/charactersView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem=""/>
+        tools:listitem="@layout/houses__list_item"/>
 </FrameLayout>

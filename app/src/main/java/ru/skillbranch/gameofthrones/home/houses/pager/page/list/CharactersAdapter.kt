@@ -56,7 +56,7 @@ class CharactersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ): CharacterViewHolder {
         val holder = CharacterViewHolder(inflater.inflate(R.layout.houses__list_item, parent, false))
 
-        holder.itemView.characterView
+        holder.itemView.characterItemView
             .clicks()
             .subscribe {
                 val position = holder.adapterPosition
