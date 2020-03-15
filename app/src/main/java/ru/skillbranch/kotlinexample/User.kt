@@ -164,7 +164,7 @@ class User private constructor(
         private fun String.fullNameToPair(): Pair<String, String?> =
             this
                 .split(" ")
-                .filter { isNotBlank() }
+                .filter { it.isNotBlank() }
                 .run {
                     when (size) {
                         1 -> first() to null
