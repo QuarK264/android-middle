@@ -55,7 +55,17 @@ object UserHolder {
                 .split(';')
                 .take(4)
                 .map { it.trim() }
-            val user = User.makeUser(userProps[0], userProps[1], "temp", userProps[3])
+            val user = if (userProps[3] == "") {
+                User.makeUser(userProps[0], userProps[1], "temp")
+            } else {
+                User.makeUser(userProps[0], phone = userProps[3])
+            }
+            user.apply {
+                val authData = userProps[2].split(":")
+                salt = authData[0]
+                passwordHash = authData[1]
+                userInfo = userInfo.replace("""\{.+\}""".toRegex(), "{src=csv}")
+            }
             users.add(user)
         }
 

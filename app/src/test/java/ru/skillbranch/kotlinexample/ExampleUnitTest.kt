@@ -181,12 +181,13 @@ class ExampleUnitTest {
     fun test_csv() {
         val result = UserHolder.importUsers(
                 listOf(
-                    " John Doe ;JohnDoe@unknow.com;[B@7591083d:c6adb4becdc64e92857e1e2a0fd6af84;;"
+                    " John Doe ;JohnDoe@unknown.com;[B@7591083d:c6adb4becdc64e92857e1e2a0fd6af84;;",
+                    "  Mark Smith;;[B@7621083d:c6adbge5cdc64e9285e1e2a0fd6af843;+79524782585;"
                 )
             )
             .map { it.userInfo }
 
-        val expectedInfo = """
+        val expectedInfo = listOf("""
             firstName: John
             lastName: Doe
             login: johndoe@unknown.com
@@ -194,8 +195,19 @@ class ExampleUnitTest {
             initials: J D
             email: JohnDoe@unknown.com
             phone: null
-            meta: {auth=password}
+            meta: {src=csv}
+        """.trimIndent(),
+        """
+            firstName: Mark
+            lastName: Smith
+            login: +79524782585
+            fullName: Mark Smith
+            initials: M S
+            email: null
+            phone: +79524782585
+            meta: {src=csv}
         """.trimIndent()
+        )
 
         Assert.assertEquals(expectedInfo, result)
     }

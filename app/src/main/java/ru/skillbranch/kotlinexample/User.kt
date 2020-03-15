@@ -11,7 +11,7 @@ class User private constructor(
     rawPhone: String? = null,
     meta: Map<String, Any>? = null
 ) {
-    val userInfo: String
+    var userInfo: String
 
     private val fullName
         get() = listOfNotNull(firstName, lastName)
@@ -36,9 +36,21 @@ class User private constructor(
             _login = value.toLowerCase()
         }
 
-    private var salt: String? = null
+    private var _salt: String? = null
 
-    private lateinit var passwordHash: String
+    var salt: String?
+        get() = _salt
+        set(value) {
+            _salt = value
+        }
+
+    private lateinit var _passwordHash: String
+
+    var passwordHash: String
+        get() = _passwordHash
+        set(value) {
+            _passwordHash = value
+        }
 
     var accessCode: String? = null
 
@@ -49,7 +61,7 @@ class User private constructor(
         password: String
     ) : this(firstName, lastName, email, meta = mapOf("auth" to "password")) {
         println("Secondary email constructor")
-        passwordHash = encrypt(password)
+        _passwordHash = encrypt(password)
     }
 
     constructor(
@@ -59,8 +71,8 @@ class User private constructor(
     ) : this(firstName, lastName, rawPhone = rawPhone, meta = mapOf("auth" to "sms")) {
         println("Secondary phone constructor")
         val code = generateAccessCode()
-        passwordHash = encrypt(code)
-        println("Phone passwordHash is $passwordHash")
+        _passwordHash = encrypt(code)
+        println("Phone passwordHash is $_passwordHash")
         accessCode = code
         sendAccessCodeToUser(rawPhone, code)
     }
@@ -86,13 +98,13 @@ class User private constructor(
         """.trimIndent()
     }
 
-    fun checkPassword(password: String) = encrypt(password) == passwordHash.also {
+    fun checkPassword(password: String) = encrypt(password) == _passwordHash.also {
         println("Checking password hash is $it")
     }
 
     fun changePassword(oldPassword: String, newPassword: String) {
         if (checkPassword(oldPassword)) {
-            passwordHash = encrypt(newPassword)
+            _passwordHash = encrypt(newPassword)
             if (!accessCode.isNullOrEmpty()) {
                 accessCode = newPassword
             }
@@ -103,11 +115,11 @@ class User private constructor(
     }
 
     private fun encrypt(password: String): String {
-        if (salt.isNullOrEmpty()) {
-            salt = ByteArray(16).also { SecureRandom().nextBytes(it) }.toString()
+        if (_salt.isNullOrEmpty()) {
+            _salt = ByteArray(16).also { SecureRandom().nextBytes(it) }.toString()
         }
-        println("Salt while encrypt: $salt")
-        return salt.plus(password).md5()
+        println("Salt while encrypt: $_salt")
+        return _salt.plus(password).md5()
     }
 
     private fun String.md5(): String {
