@@ -66,6 +66,7 @@ object UserHolder {
                 passwordHash = authData[1]
                 userInfo = userInfo.replace("""\{.+\}""".toRegex(), "{src=csv}")
             }
+            map[user.login] = user
             users.add(user)
         }
 

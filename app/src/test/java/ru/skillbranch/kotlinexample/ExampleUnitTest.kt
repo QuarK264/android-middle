@@ -213,6 +213,33 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun test_csv_login() {
+        val holder = UserHolder
+
+        val expectedUsers = holder.importUsers(listOf(
+            " John    Doe ;JohnDoe@list.ru;[B@7591083d:c6adb4becdc64e92857e1e2a0fd6af84;;",
+            " John;;[B@77a567e1:a07e337973f9ab704118c73ff827a695;+7 (900) 971-11-11;"
+        ))
+
+        val expectedInfo = """
+            firstName: John
+            lastName: Doe
+            login: johndoe@list.ru
+            fullName: John Doe
+            initials: J D
+            email: JohnDoe@list.ru
+            phone: null
+            meta: {src=csv}
+        """.trimIndent()
+
+        val successResult =  holder.loginUser("johndoe@list.ru", "testPass")
+        val failResult =  holder.loginUser("JohnDoe@gmail.ru", "invalidPass")
+
+        Assert.assertNotEquals(expectedInfo, failResult)
+        Assert.assertEquals(expectedInfo, successResult)
+    }
+
+    @Test
     fun test_extension() {
         val result = "House Nymeros Martell of Sunspear"
             .split(" ")
