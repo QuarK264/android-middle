@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">AndroidMiddle</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="app_name">Skill Articles</string>
 </resources>
