@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.RootActivity">
@@ -12,20 +13,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/ArticleToolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"/>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="?actionBarSize"
+            android:elevation="@dimen/view_offset_small"
+            android:theme="@style/ArticleBarsTheme"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            app:logo="@drawable/logo_placeholder"
+            app:subtitle="@string/loading"
+            tools:title="@string/app_name"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <TextView
+            android:id="@+id/tv_text_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_offset_side"
+            android:text="@string/loading"/>
+    </androidx.core.widget.NestedScrollView>
+
+    <ru.skillbranch.skillarticles.ui.custom.ArticleSubmenu
+        android:id="@+id/submenu"
+        android:layout_width="200dp"
+        android:layout_height="96dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/view_offset_small"
+        android:layout_marginBottom="@dimen/view_offset_small"
+        android:elevation="@dimen/view_offset_medium"
+        android:theme="@style/ArticleBarsTheme"
+        android:visibility="gone"
+        app:layout_dodgeInsetEdges="bottom"
+        tools:visibility="visible"/>
+
+    <ru.skillbranch.skillarticles.ui.custom.Bottombar
+        android:id="@+id/bottombar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="bottom"
+        android:elevation="4dp"
+        android:theme="@style/ArticleBarsTheme"
+        app:layout_insetEdge="bottom"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
