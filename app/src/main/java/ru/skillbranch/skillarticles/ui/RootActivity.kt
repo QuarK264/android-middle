@@ -56,8 +56,8 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun setupSubmenu() {
-        btn_text_up.setOnClickListener { viewModel.handleTextUp() }
-        btn_text_down.setOnClickListener { viewModel.handleTextDown() }
+        btn_text_up.setOnClickListener { viewModel.handleUpText() }
+        btn_text_down.setOnClickListener { viewModel.handleDownText() }
         switch_mode.setOnClickListener { viewModel.handleNightMode() }
     }
 
@@ -65,7 +65,7 @@ class RootActivity : AppCompatActivity() {
         btn_like.setOnClickListener { viewModel.handleLike() }
         btn_bookmark.setOnClickListener { viewModel.handleBookmark() }
         btn_share.setOnClickListener { viewModel.handleShare() }
-        btn_settings.setOnClickListener { viewModel.handleToogleMenu() }
+        btn_settings.setOnClickListener { viewModel.handleToggleMenu() }
     }
 
     private fun renderUI(data: ArticleState) {
