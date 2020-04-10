@@ -39,7 +39,7 @@ object LocalDataHolder {
         GlobalScope.launch {
             if (isDelay) delay(500)
             withContext(Dispatchers.Main){
-                articleInfo.value = ArticlePersonalInfo(isBookmark = true)
+                articleInfo.value = ArticlePersonalInfo()
             }
         }
         return articleInfo

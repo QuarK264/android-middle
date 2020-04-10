@@ -27,6 +27,11 @@
         <item name="colorOnPrimary">@color/color_on_article_bar</item>
         <item name="colorSurface">@color/color_article_bar</item>
         <item name="colorControlNormal">@color/color_on_article_bar</item>
+
+        <item name="android:editTextColor">@color/color_on_article_bar</item>
+        <item name="android:textColorHint">@color/color_on_article_bar</item>
+        <item name="android:textCursorDrawable">@color/color_on_article_bar</item>
+        <item name="queryHint">@string/search_title</item>
     </style>
 
     <style name="ArticleToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
@@ -46,5 +51,4 @@
     <style name="CustomSnackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="layout_insetEdge">bottom</item>
     </style>
-
 </resources>

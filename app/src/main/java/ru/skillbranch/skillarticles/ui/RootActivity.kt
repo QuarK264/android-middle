@@ -1,10 +1,13 @@
 package ru.skillbranch.skillarticles.ui
 
 import android.os.Bundle
+import android.view.Menu
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuItemCompat
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.layout_bottombar.*
@@ -12,7 +15,6 @@ import kotlinx.android.synthetic.main.layout_submenu.*
 import kotlinx.android.synthetic.main.root.*
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
-import ru.skillbranch.skillarticles.extensions.initializeToolbar
 import ru.skillbranch.skillarticles.viewmodels.ArticleState
 import ru.skillbranch.skillarticles.viewmodels.ArticleViewModel
 import ru.skillbranch.skillarticles.viewmodels.Notify
@@ -21,11 +23,15 @@ import ru.skillbranch.skillarticles.viewmodels.ViewModelFactory
 class RootActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ArticleViewModel
+    private lateinit var searchView: SearchView
+    private var searchString: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.root)
+
+        searchString = savedInstanceState?.getString(EXTRA_SEARCH_QUERY)
 
         setupToolbar()
         setupBottombar()
@@ -41,8 +47,37 @@ class RootActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+
+        val searchItem = menu?.findItem(R.id.action_search)
+            ?: throw IllegalStateException("Menu is not found")
+        searchView = MenuItemCompat.getActionView(searchItem) as SearchView
+
+        if (!searchString.isNullOrEmpty()) {
+            searchItem.expandActionView()
+            searchView.setQuery(searchString, true)
+            searchView.clearFocus()
+        }
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        val searchQuery = searchView.query.toString()
+        outState.putString(EXTRA_SEARCH_QUERY, searchQuery)
+    }
+
     private fun setupToolbar() {
-        initializeToolbar(toolbar, getString(R.string.app_name))
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeButtonEnabled(true)
+            setTitle(R.string.app_name)
+        }
 
         val logo = if (toolbar.childCount > 2) toolbar.getChildAt(1) as ImageView else null
         logo?.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -85,7 +120,7 @@ class RootActivity : AppCompatActivity() {
             btn_text_down.isChecked = true
         }
 
-        delegate.localNightMode = if(data.isDarkMode) {
+        delegate.localNightMode = if (data.isDarkMode) {
             AppCompatDelegate.MODE_NIGHT_YES
         } else {
             AppCompatDelegate.MODE_NIGHT_NO
@@ -108,7 +143,8 @@ class RootActivity : AppCompatActivity() {
             .setAnchorView(bottombar)
 
         when (notify) {
-            is Notify.TextMessage -> {}
+            is Notify.TextMessage -> {
+            }
             is Notify.ActionMessage -> {
                 snackbar.setActionTextColor(getColor(R.color.colorAccentDark))
                 snackbar.setAction(notify.actionLabel) {
@@ -128,5 +164,9 @@ class RootActivity : AppCompatActivity() {
         }
 
         snackbar.show()
+    }
+
+    companion object {
+        private const val EXTRA_SEARCH_QUERY = "EXTRA_SEARCH_QUERY"
     }
 }
