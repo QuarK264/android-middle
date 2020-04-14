@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.root.*
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
 import ru.skillbranch.skillarticles.ui.custom.behaviors.BottombarBehavior
+import ru.skillbranch.skillarticles.ui.custom.behaviors.SubmenuBehavior
 import ru.skillbranch.skillarticles.viewmodels.ArticleState
 import ru.skillbranch.skillarticles.viewmodels.ArticleViewModel
 import ru.skillbranch.skillarticles.viewmodels.Notify
@@ -93,6 +94,9 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun setupSubmenu() {
+        val layoutParams = submenu.layoutParams as CoordinatorLayout.LayoutParams
+        layoutParams.behavior = SubmenuBehavior()
+
         btn_text_up.setOnClickListener { viewModel.handleUpText() }
         btn_text_down.setOnClickListener { viewModel.handleDownText() }
         switch_mode.setOnClickListener { viewModel.handleNightMode() }
