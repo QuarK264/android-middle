@@ -2,21 +2,11 @@ package ru.skillbranch.skillarticles.ui.custom.behaviors
 
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.math.MathUtils
 import androidx.core.view.ViewCompat
 import ru.skillbranch.skillarticles.ui.custom.Bottombar
 
 class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
-
-    private var height: Int = 0
-
-    override fun onLayoutChild(
-        parent: CoordinatorLayout,
-        child: Bottombar,
-        layoutDirection: Int
-    ): Boolean {
-        height = child.height
-        return super.onLayoutChild(parent, child, layoutDirection)
-    }
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -25,33 +15,23 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
         target: View,
         axes: Int,
         type: Int
-    ): Boolean = axes == ViewCompat.SCROLL_AXIS_VERTICAL
+    ): Boolean {
+        return axes == ViewCompat.SCROLL_AXIS_VERTICAL
+    }
 
-    override fun onNestedScroll(
+    override fun onNestedPreScroll(
         coordinatorLayout: CoordinatorLayout,
         child: Bottombar,
         target: View,
-        dxConsumed: Int,
-        dyConsumed: Int,
-        dxUnconsumed: Int,
-        dyUnconsumed: Int,
-        type: Int,
-        consumed: IntArray
+        dx: Int,
+        dy: Int,
+        consumed: IntArray,
+        type: Int
     ) {
-        if (dyConsumed > 0) {
-            slideUp(child)
-        } else if (dyConsumed < 0) {
-            slideDown(child)
+        if(!child.isSearchMode){
+            val offset = MathUtils.clamp(child.translationY + dy, 0f, child.height.toFloat())
+            if (offset != child.translationY) child.translationY = offset
         }
-    }
-
-    private fun slideDown(child: Bottombar) {
-        child.clearAnimation()
-        child.animate().translationY(0f).duration = 200
-    }
-
-    private fun slideUp(child: Bottombar) {
-        child.clearAnimation()
-        child.animate().translationY(height.toFloat()).duration = 200
+        super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
     }
 }

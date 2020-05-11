@@ -3,4 +3,6 @@
     <string name="loading">Loading…</string>
     <string name="dark_mode">Темный режим</string>
     <string name="search_title">Search</string>
+    <string name="not_found">Not found</string>
+    <string name="search_count">%1$d of %2$d</string>
 </resources>

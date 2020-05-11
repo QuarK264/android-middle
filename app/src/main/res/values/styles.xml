@@ -48,6 +48,10 @@
         <item name="android:background">@drawable/ripple</item>
     </style>
 
+    <style name="BottombarSearchIcon" parent="BottombarIcon">
+        <item name="android:tint">@color/tint_search_color</item>
+    </style>
+
     <style name="CustomSnackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="layout_insetEdge">bottom</item>
     </style>
