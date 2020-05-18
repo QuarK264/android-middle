@@ -53,8 +53,6 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
     val bgColor by AttrValue(R.attr.colorSecondary)
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val fgColor by AttrValue(R.attr.colorOnSecondary)
-    //private lateinit var searchView: SearchView
-    //private var searchString: String? = null
 
     override fun setupViews() {
         setupToolbar()
@@ -113,25 +111,6 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
         scroll.setMarginOptionally(bottom = dpToIntPx(0))
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        setContentView(R.layout.root)
-//
-//        searchString = savedInstanceState?.getString(EXTRA_SEARCH_QUERY)
-//
-//        setupToolbar()
-//        setupBottombar()
-//        setupSubmenu()
-//
-//        viewModel.observeState(this) {
-//            renderUI(it)
-//        }
-//        viewModel.observeNotifications(this) {
-//            renderNotification(it)
-//        }
-//    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
 
@@ -139,14 +118,6 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
             ?: throw IllegalStateException("Menu is not found")
         val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
 
-//        if (!searchString.isNullOrEmpty()) {
-//            searchItem.expandActionView()
-//            searchView.setQuery(searchString, true)
-//            if (binding.isFocusedSearch) {
-//                searchView.requestFocus()
-//            }
-//            searchView.clearFocus()
-//        }
         if (binding.isSearch) {
             searchItem.expandActionView()
             searchView.setQuery(binding.searchQuery, false)
@@ -183,20 +154,13 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
         return super.onCreateOptionsMenu(menu)
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//
-//        val searchQuery = searchView.query.toString()
-//        outState.putString(EXTRA_SEARCH_QUERY, searchQuery)
-//    }
-
     private fun setupToolbar() {
         setSupportActionBar(toolbar)
 
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeButtonEnabled(true)
-            setTitle(R.string.app_name)
+            //setTitle(R.string.app_name)
         }
 
         val logo = if (toolbar.childCount > 2) toolbar.getChildAt(1) as ImageView else null
@@ -246,41 +210,6 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
         }
     }
 
-    private fun renderUI(data: ArticleState) {
-        btn_settings.isChecked = data.isShowMenu
-        if (data.isShowMenu) submenu.open() else submenu.close()
-
-        btn_like.isChecked = data.isLike
-        btn_bookmark.isChecked = data.isBookmark
-
-        if (data.isBigText) {
-            tv_text_content.textSize = 18f
-            btn_text_up.isChecked = true
-            btn_text_down.isChecked = false
-        } else {
-            tv_text_content.textSize = 14f
-            btn_text_up.isChecked = false
-            btn_text_down.isChecked = true
-        }
-
-        delegate.localNightMode = if (data.isDarkMode) {
-            AppCompatDelegate.MODE_NIGHT_YES
-        } else {
-            AppCompatDelegate.MODE_NIGHT_NO
-        }
-
-        val loading = getString(R.string.loading)
-        tv_text_content.text = if (data.isLoadingContent) {
-            loading
-        } else {
-            data.content.first() as String
-        }
-
-        toolbar.title = data.title ?: loading
-        toolbar.subtitle = data.category ?: loading
-        if (data.categoryIcon != null) toolbar.logo = getDrawable(data.categoryIcon as Int)
-    }
-
     override fun renderNotification(notify: Notify) {
         val snackbar = Snackbar.make(coordinator_container, notify.message, Snackbar.LENGTH_LONG)
             .setAnchorView(bottombar)
@@ -309,10 +238,6 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
         snackbar.show()
     }
 
-    companion object {
-        private const val EXTRA_SEARCH_QUERY = "EXTRA_SEARCH_QUERY"
-    }
-
     inner class ArticleBinding : Binding() {
 
         var isFocusedSearch: Boolean = false
@@ -327,9 +252,7 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
             if (it) submenu.open() else submenu.close()
         }
         private var title: String by RenderProp(getString(R.string.loading)) { toolbar.title = it }
-        private var category: String by RenderProp(getString(R.string.loading)) {
-            toolbar.subtitle = it
-        }
+        private var category: String by RenderProp(getString(R.string.loading)) { toolbar.subtitle = it }
         private var categoryIcon: Int by RenderProp(R.drawable.logo_placeholder) {
             toolbar.logo = getDrawable(it)
         }

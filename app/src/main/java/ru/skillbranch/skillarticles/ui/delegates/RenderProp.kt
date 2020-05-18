@@ -25,9 +25,7 @@ class RenderProp<T>(
         this.value = value
         onChange?.invoke(this.value)
         if (listeners.isNotEmpty()) {
-            listeners.forEach {
-                it.invoke()
-            }
+            listeners.forEach { it.invoke() }
         }
     }
 
@@ -37,7 +35,7 @@ class RenderProp<T>(
     }
 }
 
-class ObserveProp<T : Any>(private val value: T, private val onChange: ((T) -> Unit)? = null) {
+class ObserveProp<T: Any>(private val value: T, private val onChange: ((T) -> Unit)? = null) {
 
     //provide delegate (when by call)
     operator fun provideDelegate(
