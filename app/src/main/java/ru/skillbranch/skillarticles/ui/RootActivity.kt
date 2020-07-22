@@ -17,13 +17,7 @@ import androidx.core.text.getSpans
 import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_root.*
-import kotlinx.android.synthetic.main.layout_bottombar.*
-import kotlinx.android.synthetic.main.layout_submenu.*
-import kotlinx.android.synthetic.main.search_view_layout.*
 import ru.skillbranch.skillarticles.R
-import ru.skillbranch.skillarticles.extensions.dpToIntPx
-import ru.skillbranch.skillarticles.extensions.setMarginOptionally
 import ru.skillbranch.skillarticles.ui.base.BaseActivity
 import ru.skillbranch.skillarticles.ui.base.Binding
 import ru.skillbranch.skillarticles.ui.custom.SearchFocusSpan
@@ -191,11 +185,17 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
             if (search_view.hasFocus()) {
                 search_view.clearFocus()
             }
+            if (!tv_text_content.hasFocus()) {
+                tv_text_content.requestFocus()
+            }
             viewModel.handleUpResult()
         }
         btn_result_down.setOnClickListener {
             if (search_view.hasFocus()) {
                 search_view.clearFocus()
+            }
+            if (!tv_text_content.hasFocus()) {
+                tv_text_content.requestFocus()
             }
             viewModel.handleDownResult()
         }
